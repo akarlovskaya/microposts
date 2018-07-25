@@ -1,0 +1,13 @@
+.delete {
+    color: #f96353;
+}
+
+.delete:hover {
+    color: #f73722;
+}
+
+.alert-success {
+    max-width: 210px;
+    margin: 0 auto 20px;
+    text-align: center;
+}

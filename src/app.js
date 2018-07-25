@@ -9,10 +9,30 @@ const urlAPI = 'http://localhost:3000/posts';
 // Get posts when DOM is ready (not wait for the page load), so the handler can lookup DOM nodes, initialize the interface)
 document.addEventListener('DOMContentLoaded', getPosts);
 
-// getting data from back-end API
+// Listen for add post
+document.querySelector('.post-submit').addEventListener('click', submitPost);
 
+// getting data from back-end API
 function getPosts() {
     http.get(urlAPI)
         .then(data => ui.showPosts(data))
+        .catch(err => console.log(err));
+}
+// submit new post
+function submitPost(){
+    let titleValue = document.getElementById('title').value;
+    let bodyValue = document.getElementById('body').value;
+
+    let data = {
+        title: titleValue,
+        body: bodyValue
+    };
+
+    http.post(urlAPI, data)
+        .then(data => {
+            ui.showAlert('Post added', 'alert alert-success');
+            ui.clearFileds();
+            getPosts();
+        })
         .catch(err => console.log(err));
 }
