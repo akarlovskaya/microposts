@@ -6,7 +6,6 @@ class UI {
         this.idInput = document.getElementById('id');
         this.postSubmit = document.querySelector('.post-submit');
         this.formState = 'add';
-        // this.alertMsgEl =  document.querySelector('.form-end');
     }
 
     // method displays posts on UI
@@ -50,7 +49,7 @@ class UI {
         // remove alert after 2 sec
         setTimeout(() => {
             this.clearAlert();
-        }, 2000);
+        }, 3000);
 
     }
 

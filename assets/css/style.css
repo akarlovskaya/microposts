@@ -6,7 +6,7 @@
     color: #f73722;
 }
 
-.alert-success {
+.alert-success, .alert-danger {
     max-width: 210px;
     margin: 0 auto 20px;
     text-align: center;

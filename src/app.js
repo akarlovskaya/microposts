@@ -8,9 +8,11 @@ const urlAPI = 'http://localhost:3000/posts';
 // Event listeners
 // Get posts when DOM is ready (not wait for the page load), so the handler can lookup DOM nodes, initialize the interface)
 document.addEventListener('DOMContentLoaded', getPosts);
-
 // Listen for add post
 document.querySelector('.post-submit').addEventListener('click', submitPost);
+// Listen for delete post
+document.querySelector('#posts').addEventListener('click', deletePost);
+
 
 // getting data from back-end API
 function getPosts() {
@@ -35,4 +37,21 @@ function submitPost(){
             getPosts();
         })
         .catch(err => console.log(err));
+}
+
+// delete post
+function deletePost(e) {
+    let parentEl = e.target.parentElement;
+    //get parent <a> tag with class .delete
+    if ( parentEl.classList.contains('delete') ) {
+        // get custom attr value with ID
+        let postId = parentEl.getAttribute('data-id');
+        http.delete(urlAPI + '/' + postId)
+            .then(data => {
+                ui.showAlert(data, 'alert alert-danger');
+                getPosts();
+            })
+            .catch(err => console.log(err));
+    }
+    e.preventDefault();
 }
