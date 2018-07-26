@@ -46,7 +46,7 @@ class UI {
         postsContainer.insertBefore(alertDiv, this.post);
 
 
-        // remove alert after 2 sec
+        // remove alert after 3 sec
         setTimeout(() => {
             this.clearAlert();
         }, 3000);
@@ -61,9 +61,51 @@ class UI {
         }
     }
 
-    clearFileds() {
+    clearFields() {
         this.bodyInput.value = '';
         this.titleInput.value = '';
+    }
+
+    fillForm(data){
+        this.titleInput.value = data.title;
+        this.bodyInput.value = data.body;
+        this.idInput.value = data.id;
+
+        this.changeFormState('edit');
+    }
+
+    // Clear ID hidden value
+    clearIdInput() {
+        this.idInput.value = '';
+    }
+
+    // Change Form State
+    changeFormState(type) {
+        if ( type === 'edit' ) {
+            this.postSubmit.textContent = 'Submit Edit';
+            this.postSubmit.className = 'post-submit btn btn-warning btn-block';
+
+            // add Cancel button
+            const button = document.createElement('button');
+            button.className = 'post-cancel btn btn-light btn-block';
+            button.appendChild(document.createTextNode('Cancel Edit'));
+            // button.textContent = 'Cancel Edit'; - use it to update existing el
+            const cardFormEl = document.querySelector('.card-form');
+            const formEndEl = document.querySelector('.form-end');
+            cardFormEl.insertBefore(button, formEndEl);
+        } else {
+            this.postSubmit.textContent = 'Add post';
+            this.postSubmit.className = 'post-submit btn btn-primary btn-block';
+
+            // Remove cancel button
+            if (document.querySelector('.post-cancel')) {
+                document.querySelector('.post-cancel').remove();
+            }
+
+            // clear ID from hidden field
+            this.clearIdInput();
+            this.clearFields();
+        }
     }
 }
 
